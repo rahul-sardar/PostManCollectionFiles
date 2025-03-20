@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "c0f609fe-f857-4984-af91-4535aefb9255",
+		"name": "API-MOCK-SERVER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"company\": \"Tech Innovators Inc. response body\",\n    \"users\": [\n        {\n            \"id\": 1,\n            \"name\": \"Alice Johnson\",\n            \"designation\": \"Software Engineer\",\n            \"city\": \"San Francisco\",\n            \"email\": \"alice.johnson@example.com\",\n            \"phone\": \"123-456-7890\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Bob Smith\",\n            \"designation\": \"Product Manager\",\n            \"city\": \"New York\",\n            \"email\": \"bob.smith@example.com\",\n            \"phone\": \"987-654-3210\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Charlie Davis\",\n            \"designation\": \"UX Designer\",\n            \"city\": \"Austin\",\n            \"email\": \"charlie.davis@example.com\",\n            \"phone\": \"456-789-0123\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Dana Lee\",\n            \"designation\": \"DevOps Engineer\",\n            \"city\": \"Seattle\",\n            \"email\": \"dana.lee@example.com\",\n            \"phone\": \"321-654-9870\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Eli Brown\",\n            \"designation\": \"Data Scientist\",\n            \"city\": \"Boston\",\n            \"email\": \"eli.brown@example.com\",\n            \"phone\": \"789-012-3456\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "users",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "authToken",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/authToken",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"authToken"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/authToken",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"authToken"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\n  \"username\": \"john_doe\",\n  \"authToken\": \"abc123xyz456\"\n}"
+				}
+			]
+		},
+		{
+			"name": "update-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"id\": 5,\n      \"name\": \"Eli Brown\",\n      \"designation\": \"Data Scientist\",\n      \"city\": \"Boston\",\n      \"email\": \"eli.brown@example.com\",\n      \"phone\": \"789-012-3456\"\n    }"
+				},
+				"url": {
+					"raw": "{{url}}/update-user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"update-user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"id\": 5,\n      \"name\": \"Eli Brown\",\n      \"designation\": \"Data Scientist\",\n      \"city\": \"Boston\",\n      \"email\": \"eli.brown@example.com\",\n      \"phone\": \"789-012-3456\"\n    }"
+						},
+						"url": {
+							"raw": "{{url}}/update-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"update-user"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "Updated Successfully!!"
+				}
+			]
+		},
+		{
+			"name": "Tutorial_Reuqest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/getTutorialForAPIEasy",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getTutorialForAPIEasy"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Tutorial_Reuqest",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/getTutorialForAPIEasy",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"getTutorialForAPIEasy"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "Please reach out to Rahul Sardar, Offer Valid for Ashwiniii Kadam only "
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://52a9bbb6-f05f-4b81-88d1-997f8f334b14.mock.pstmn.io"
+		}
+	]
+}

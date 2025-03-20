@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "d0335998-2bfc-485c-83a5-13ae90d4822e",
+		"name": "XMLRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "Get Users XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonObject = xml2Json(responseBody);",
+							"console.log(jsonObject);",
+							"console.log(jsonObject.objects.object);",
+							"const users = jsonObject.objects.object;",
+							"const usersIds = [];",
+							"users.forEach(function(user){",
+							"    if(user.status === \"inactive\"){",
+							"        usersIds.push(user.name);",
+							"    }",
+							"});",
+							"console.log(usersIds);",
+							"",
+							"var expectedNames = [",
+							"  \"Dulari Pilla\",",
+							"  \"Bhaswar Naik\",",
+							"  \"Gov. Girish Verma\",",
+							"  \"Naval Nehru\"",
+							"];",
+							"",
+							"pm.test('check names of inactive users', function(){",
+							"pm.expect(usersIds).to.include.members(expectedNames);",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users.xml",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users.xml"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

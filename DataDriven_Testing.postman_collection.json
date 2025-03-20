@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "9c7a58b1-8914-4dbc-a49f-32e9a13a92dc",
+		"name": "DataDriven Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "Create User With data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"requestJson\",JSON.stringify(pm.iterationData.toObject()) )\r",
+							"\r",
+							"\r",
+							"// pm.globals.set(): This function sets a global variable in Postman. Global variables are accessible in any request and any collection run.\r",
+							"\r",
+							"// \"requestJson\": This is the name of the global variable you are setting. In this case, it is requestJson.\r",
+							"\r",
+							"// JSON.stringify(): This function converts a JavaScript object or value to a JSON string. It is used here to convert the iteration data into a string format.\r",
+							"\r",
+							"// pm.iterationData.toObject(): pm.iterationData is a Postman object that holds data for the current iteration when running a collection. The toObject() method converts this iteration data into a JavaScript object."
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response Body Contains the passed data \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.name).to.eql(pm.iterationData.get(\"name\"));\r",
+							"    pm.expect(jsonData.json.city).to.eql(pm.iterationData.get(\"city\"));\r",
+							"});\r",
+							"\r",
+							"//Open the response in the console after running, you go to the response body and then u will see the\r",
+							"//passed data by postmanData.json file and now we are testing that data. I\r",
+							"\r",
+							"// here is the response\r",
+							"// {\r",
+							"//   \"args\": {}, \r",
+							"//   \"data\": \"{\\\"name\\\":\\\"Amit\\\",\\\"city\\\":\\\"Pune\\\",\\\"designation\\\":\\\"SDET\\\"}\", \r",
+							"//   \"files\": {}, \r",
+							"//   \"form\": {}, \r",
+							"//   \"headers\": {\r",
+							"//     \"Accept\": \"*/*\", \r",
+							"//     \"Accept-Encoding\": \"gzip, deflate, br\", \r",
+							"//     \"Cache-Control\": \"no-cache\", \r",
+							"//     \"Content-Length\": \"50\", \r",
+							"//     \"Content-Type\": \"application/json\", \r",
+							"//     \"Host\": \"httpbin.org\", \r",
+							"//     \"Postman-Token\": \"2d44462d-0878-4065-a0a6-0d34be1fe402\", \r",
+							"//     \"User-Agent\": \"PostmanRuntime/7.37.3\", \r",
+							"//     \"X-Amzn-Trace-Id\": \"Root=1-665f3ff7-5f8b0c577f1f47bb452c4ce6\"\r",
+							"//   }, \r",
+							"//   \"json\": {\r",
+							"//     \"city\": \"Pune\", \r",
+							"//     \"designation\": \"SDET\", \r",
+							"//     \"name\": \"Amit\"\r",
+							"//   }, \r",
+							"//   \"origin\": \"103.147.176.145\", \r",
+							"//   \"url\": \"http://httpbin.org/post\"\r",
+							"// }"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestJson}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://httpbin.org/post",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user with same set of data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Response body name contains\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.name).to.eql(pm.iterationData.get(\"name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Response body city contains\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.city).to.eql(pm.iterationData.get(\"city\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Response body designation contains\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.json.designation).to.eql(pm.iterationData.get(\"designation\"));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"city\": \"{{city}}\",\r\n    \"designation\": \"{{designation}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://httpbin.org/post",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

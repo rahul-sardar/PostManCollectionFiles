@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "b9181477-0bbd-4155-aeae-1e6c18cdd21c",
+		"name": "PostmanResponseObjectMethod",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "GetUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Log the entire response JSON\r",
+							"console.log(\"Full Response:\", pm.response.json());\r",
+							"\r",
+							"// Log specific fields\r",
+							"let jsonDataPrint = pm.response.json();\r",
+							"console.log(\"User ID:\", jsonDataPrint.id);\r",
+							"console.log(\"User Name:\", jsonDataPrint.name);\r",
+							"console.log(\"User Email:\", jsonDataPrint.email);\r",
+							"console.log(\"City:\", jsonDataPrint.address.city);\r",
+							"\r",
+							"// Log headers\r",
+							"console.log(\"Headers:\", pm.response.headers.all());\r",
+							"\r",
+							"// Log response time\r",
+							"console.log(\"Response Time:\", pm.response.responseTime, \"ms\");\r",
+							"\r",
+							"// Log status code\r",
+							"console.log(\"Status Code:\", pm.response.code);\r",
+							"\r",
+							"// Log raw text response\r",
+							"console.log(\"Raw Response Body:\", pm.response.text());\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Validate response status\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Validate response time\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"// Validate response headers\r",
+							"pm.test(\"Content-Type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// Validate JSON structure\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"id\", 1);\r",
+							"    pm.expect(jsonData).to.have.property(\"name\");\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"});\r",
+							"\r",
+							"// Validate if name contains expected text\r",
+							"pm.test(\"User's name contains 'Leanne'\", function () {\r",
+							"    pm.expect(jsonData.name).to.include(\"Leanne\");\r",
+							"});\r",
+							"\r",
+							"// Validate email format using regex\r",
+							"pm.test(\"Email is in correct format\", function () {\r",
+							"    pm.expect(jsonData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);\r",
+							"});\r",
+							"\r",
+							"// Check if the response has an address field\r",
+							"pm.test(\"Response has an address object\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"address\");\r",
+							"});\r",
+							"\r",
+							"// Validate city inside address\r",
+							"pm.test(\"City should be 'Gwenborough'\", function () {\r",
+							"    pm.expect(jsonData.address.city).to.eql(\"Gwenborough\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

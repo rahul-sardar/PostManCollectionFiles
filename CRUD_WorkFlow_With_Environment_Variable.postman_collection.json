@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "58924251-a39f-4eb7-95a0-215a778562d9",
+		"name": "CRUD WorkFlow With Environment Variable",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "1 - Create the user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fullResponse = pm.response.json()\r",
+							"const userId = fullResponse.id\r",
+							"console.log(\"user id ==>\" + userId);\r",
+							"pm.variables.set(\"userId\", userId);\r",
+							"\r",
+							"const requestBody = JSON.parse(pm.request.body)\r",
+							"const name = requestBody.name;\r",
+							"const email = requestBody.email;\r",
+							"console.log(\"user name ==>\" + requestBody.name);\r",
+							"console.log(\"user email ==>\" + requestBody.email);\r",
+							"console.log(\"user name & email id :===> \" + name + \":\" + email);\r",
+							"//set name and email variables:\r",
+							"pm.variables.set(\"name\", name);\r",
+							"pm.variables.set(\"email\",email);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should have correct name and email\", function () {\r",
+							"    \r",
+							"    pm.expect(fullResponse.name).to.eql(name);\r",
+							"    pm.expect(fullResponse.email).to.eql(email);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{myToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"CrudUserRole\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"gender\": \"Male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}public/v2/users",
+					"host": [
+						"{{baseUrl}}public"
+					],
+					"path": [
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Get the user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check the name in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check the email in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).to.eql(pm.variables.get(\"email\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{myToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}public/v2/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Update the user",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{myToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}public/v2/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - Delete the user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{myToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}public/v2/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 - Get the user after the delete call",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"check resource not found after deleting the user with GET CALL\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Resource not found\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{myToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}public/v2/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}public"
+					],
+					"path": [
+						"v2",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL\n",
+			"value": "https://gorest.co.in/",
+			"type": "string"
+		},
+		{
+			"key": "myToken",
+			"value": "67cb3fd4f61e6cae4afc770a6dfdb9cdf127fb2ef302fc1b0dfd6b5ae8dab174",
+			"type": "string"
+		}
+	]
+}

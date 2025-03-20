@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "a2a7373d-eb06-4c45-a4a4-e987bd93d5ef",
+		"name": "PostMan Scripts Methods For Request and Response",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "Checking few available request method",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Log the request URL\r",
+							"console.log(\"Request URL:\", pm.request.url.toString());\r",
+							"\r",
+							"// Log the request method\r",
+							"console.log(\"Request Method:\", pm.request.method);\r",
+							"\r",
+							"// Log the request headers\r",
+							"console.log(\"Request Headers:\", pm.request.headers);\r",
+							"\r",
+							"// Log the request body (if applicable)\r",
+							"if (pm.request.body) {\r",
+							"    console.log(\"Request Body:\", pm.request.body);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Check request URL\r",
+							"pm.test(\"Check request URL\", function () {\r",
+							"    var requestUrl = pm.request.url.toString();\r",
+							"    console.log(\"Request URL:\", requestUrl);\r",
+							"    pm.expect(requestUrl).to.include(\"https://restful-booker.herokuapp.com/auth\");\r",
+							"});\r",
+							"\r",
+							"// Check request method\r",
+							"pm.test(\"Check request method\", function () {\r",
+							"    var requestMethod = pm.request.method;\r",
+							"    console.log(\"Request Method:\", requestMethod);\r",
+							"    pm.expect(requestMethod).to.eql(\"POST\");\r",
+							"});\r",
+							"\r",
+							"// Check request headers\r",
+							"pm.test(\"Check request headers\", function () {\r",
+							"    var headers = pm.request.headers;\r",
+							"    console.log(\"Request Headers:\", headers);\r",
+							"    pm.expect(headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// Check request body\r",
+							"pm.test(\"Check request body\", function () {\r",
+							"    var requestBody = pm.request.body.raw;\r",
+							"    console.log(\"Request Body In Raw:\", requestBody);\r",
+							"    pm.expect(requestBody).to.include(\"username\");\r",
+							"});\r",
+							"\r",
+							"// Check request auth (if authentication is set up)\r",
+							"pm.test(\"Check request auth\", function () {\r",
+							"    var auth = pm.request.auth;\r",
+							"    console.log(\"Request Auth:\", auth);\r",
+							"    if (auth) {\r",
+							"        pm.expect(auth.type).to.eql(\"basic\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Check request name\r",
+							"pm.test(\"Check request name\", function () {\r",
+							"    var requestName = pm.request.name;\r",
+							"    console.log(\"Request Name:\", requestName);\r",
+							"    pm.expect(requestName).to.eql(\"Checking few available request method\"); // Adjust based on your request name\r",
+							"});\r",
+							"\r",
+							"// Check request description\r",
+							"pm.test(\"Check request description\", function () {\r",
+							"    var requestDescription = pm.request.description;\r",
+							"    console.log(\"Request Description:\", requestDescription);\r",
+							"    pm.expect(requestDescription).to.include(\"This is a sample request\"); // Adjust based on your description\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/auth",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checking few available response method",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test if the status code is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test if the response time is less than 200ms\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.response.to.have.responseTime.below(200);\r",
+							"});\r",
+							"\r",
+							"// Test if the 'Content-Type' header is present\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"// Test if the 'Content-Type' header value is 'application/json; charset=utf-8'\r",
+							"pm.test(\"Content-Type is application/json; charset=utf-8\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							"// Test if the response body contains the string 'sunt aut facere'\r",
+							"pm.test(\"Body contains 'sunt aut facere'\", function () {\r",
+							"    pm.response.to.have.body('sunt aut facere');\r",
+							"});\r",
+							"\r",
+							"// Test if the JSON response has a 'userId' property\r",
+							"pm.test(\"Response has property 'userId'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('userId');\r",
+							"});\r",
+							"\r",
+							"// Test if the 'userId' property value is 1\r",
+							"pm.test(\"userId is 1\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    console.log(\"Here is the jsonData \", jsonData)\r",
+							"    console.log(\"Here is the response output \", pm.response)\r",
+							"    pm.expect(jsonData.userId).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

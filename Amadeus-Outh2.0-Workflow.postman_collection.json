@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "c986b796-59ff-4acb-bc30-c2abf0b3a978",
+		"name": "Amadeus-Outh2.0-Workflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "1- Get a request token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const authResponse = pm.response.json()\r",
+							"const accessToken = authResponse.access_token;\r",
+							"console.log(accessToken);\r",
+							"pm.environment.set(\"access_token\" , accessToken)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test.api.amadeus.com/v1/security/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"test",
+						"api",
+						"amadeus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"security",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Flight Destination Details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&maxPrice=200",
+					"protocol": "https",
+					"host": [
+						"test",
+						"api",
+						"amadeus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"shopping",
+						"flight-destinations"
+					],
+					"query": [
+						{
+							"key": "origin",
+							"value": "PAR"
+						},
+						{
+							"key": "maxPrice",
+							"value": "200"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3- Get Flight Details(Independently generating token)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url:'https://test.api.amadeus.com/v1/security/oauth2/token',\r",
+							"    method:'POST',\r",
+							"    headers: {\r",
+							"        'Content-Type' : 'application/x-www-form-urlencoded'\r",
+							"    },\r",
+							"    body: {\r",
+							"        mode: 'urlencoded',\r",
+							"        urlencoded: [\r",
+							"            { key: 'grant_type', value: 'client_credentials'},\r",
+							"            { key: 'client_id', value: '6PzhQjPTokaCS9CgWKzbgR1EzTKnLCsO'},\r",
+							"            { key:'client_secret', value: 'H22GRSCOrVZZUu0H'}\r",
+							"        ]\r",
+							"    }\r",
+							"},function(err, response){\r",
+							"    if(err){\r",
+							"        console.log(err);\r",
+							"    }\r",
+							"    var accessTokenId= response.json().access_token;\r",
+							"    console.log(accessTokenId)\r",
+							"    pm.environment.set(\"AMDTOKENID\", \"Bearer \" +accessTokenId)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AMDTOKENID}}"
+					}
+				],
+				"url": {
+					"raw": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&maxPrice=200",
+					"protocol": "https",
+					"host": [
+						"test",
+						"api",
+						"amadeus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"shopping",
+						"flight-destinations"
+					],
+					"query": [
+						{
+							"key": "origin",
+							"value": "PAR"
+						},
+						{
+							"key": "maxPrice",
+							"value": "200"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

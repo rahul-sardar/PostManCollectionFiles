@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "0af74a0e-8396-4c4e-beeb-c368b97c4e94",
+		"name": "Cheerio Example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "Get HTML response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"// Load HTML response into Cheerio\r",
+							"const $ = cheerio.load(pm.response.text());\r",
+							"\r",
+							"// Extract the first quote\r",
+							"let firstQuote = $(\".quote .text\").first().text().trim();\r",
+							"console.log(\"First Quote:\", firstQuote);\r",
+							"\r",
+							"// Extract the first author\r",
+							"let firstAuthor = $(\".quote .author\").first().text().trim();\r",
+							"console.log(\"Author:\", firstAuthor);\r",
+							"\r",
+							"// Extract all tags from the first quote\r",
+							"let tags = [];\r",
+							"$(\".quote\").first().find(\".tags .tag\").each((i, el) => {\r",
+							"    tags.push($(el).text());\r",
+							"});\r",
+							"console.log(\"Tags:\", tags);\r",
+							"\r",
+							"// Validate the first quote is not empty\r",
+							"pm.test(\"First quote should not be empty\", function () {\r",
+							"    pm.expect(firstQuote).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Extract the page title\r",
+							"let pageTitle = $(\"title\").text().trim();\r",
+							"console.log(\"Page Title:\", pageTitle);\r",
+							"\r",
+							"// Extract all links\r",
+							"let links = [];\r",
+							"$(\"a\").each((i, el) => {\r",
+							"    links.push($(el).attr(\"href\"));\r",
+							"});\r",
+							"console.log(\"Extracted Links:\", links);\r",
+							"\r",
+							"// Validate that the title is not empty\r",
+							"pm.test(\"Page title should exist\", function () {\r",
+							"    pm.expect(pageTitle).to.not.be.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quotes.toscrape.com/",
+					"protocol": "https",
+					"host": [
+						"quotes",
+						"toscrape",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

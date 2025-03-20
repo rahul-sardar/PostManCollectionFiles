@@ -1,0 +1,650 @@
+{
+	"info": {
+		"_postman_id": "1f21fc1f-5bb1-4782-8915-0079a5c0ace1",
+		"name": "BasicGetPostRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "Get calls",
+			"item": [
+				{
+					"name": "Create User",
+					"item": [
+						{
+							"name": "Create user (No token)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://gorest.co.in/public/v2/users",
+									"protocol": "https",
+									"host": [
+										"gorest",
+										"co",
+										"in"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create user (Token with no body) Copy",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 5f639349d08af6dcd7b7be5b204010e290c55714d130dd5e3e7b687a12772bab",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://gorest.co.in/public/v2/users",
+									"protocol": "https",
+									"host": [
+										"gorest",
+										"co",
+										"in"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create user (successful)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 67cb3fd4f61e6cae4afc770a6dfdb9cdf127fb2ef302fc1b0dfd6b5ae8dab174"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test44_delete\",\r\n    \"email\": \"abcde@gamil.com\",\r\n    \"gender\": \"Male\",\r\n    \"status\": \"active\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://gorest.co.in/public/v2/users",
+									"protocol": "https",
+									"host": [
+										"gorest",
+										"co",
+										"in"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"item": [
+						{
+							"name": "Update test2 user",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 67cb3fd4f61e6cae4afc770a6dfdb9cdf127fb2ef302fc1b0dfd6b5ae8dab174",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abcd@gamil.com\",\r\n    \"name\": \"test3\",\r\n    \"gender\": \"female\",\r\n    \"status\": \"active\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://gorest.co.in/public/v2/users/5573929",
+									"protocol": "https",
+									"host": [
+										"gorest",
+										"co",
+										"in"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users",
+										"5573929"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update test2 user Copy",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 67cb3fd4f61e6cae4afc770a6dfdb9cdf127fb2ef302fc1b0dfd6b5ae8dab174",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"status\": \"inactive\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://gorest.co.in/public/v2/users/7358007",
+									"protocol": "https",
+									"host": [
+										"gorest",
+										"co",
+										"in"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users",
+										"7358007"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Update test2 user Copy",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer 67cb3fd4f61e6cae4afc770a6dfdb9cdf127fb2ef302fc1b0dfd6b5ae8dab174",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n    \"status\": \"inactive\"\r\n\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://gorest.co.in/public/v2/users/7358007",
+											"protocol": "https",
+											"host": [
+												"gorest",
+												"co",
+												"in"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"7358007"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 29 Oct 2023 14:33:55 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "max-age=0, private, must-revalidate"
+										},
+										{
+											"key": "etag",
+											"value": "W/\"0a18ccd580cc72a6879ac79dc95462a9\""
+										},
+										{
+											"key": "referrer-policy",
+											"value": "strict-origin-when-cross-origin"
+										},
+										{
+											"key": "set-cookie",
+											"value": "_gorest_session=wvrL7rKnp29hVmVowI3S%2FT20Z7DIaZtI4%2BRdaxX1E5iseCGJXzHa85iMZJwAKJs8AVNf3Q17xSM%2FHt837cd%2F9FPxi9Sut%2F0dTMxcgKtZmKtxsu18lypprqmvnL21%2FkKlBAJpgGY1Fmk1fYBkZLlCh%2BdrzeTjCPCeFcHP0hIcpXb%2FP8SO0XuKWs67XqGl1715%2Fj%2BPKsfvI78dU%2FVVshR%2BM0Vkv1DC1JRmO3BIwB1BlaH3RDYeWt8EAfc%2FwUgfHlInxJR5RyqpWijfXKZBz3VwfIAHmfN6BXU%3D--iy%2Fdw6ISsv593jaI--RpLYABjetFv2rZ6yi0yyng%3D%3D; path=/; HttpOnly; SameSite=Lax"
+										},
+										{
+											"key": "vary",
+											"value": "Origin"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "x-download-options",
+											"value": "noopen"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "x-permitted-cross-domain-policies",
+											"value": "none"
+										},
+										{
+											"key": "x-ratelimit-limit",
+											"value": "90"
+										},
+										{
+											"key": "x-ratelimit-remaining",
+											"value": "89"
+										},
+										{
+											"key": "x-ratelimit-reset",
+											"value": "1"
+										},
+										{
+											"key": "x-request-id",
+											"value": "ef45e140-bc84-490c-9db4-cbbe11c17dfa"
+										},
+										{
+											"key": "x-runtime",
+											"value": "0.071691"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "0"
+										},
+										{
+											"key": "CF-Cache-Status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=XgqhPzVm%2Fj0XURICTp8ehTWfGTENyC%2BDvVpeV1bb%2BxDTXzMElaJub0SExwEbkhGmT4JXaEF05TNAcjkgn%2F6uW%2FNbbh16lA2ARxI4FT2RofrhUSSMwpP4Q6uYbx%2BMSc0%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "81dc22e5bf328976-SIN"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"inactive\",\n    \"id\": 5573929,\n    \"name\": \"test3\",\n    \"email\": \"abcd@gamil.com\",\n    \"gender\": \"female\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "New Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://httpbin.org/get",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						},
+						"description": "StartFragment\n\n- Now here we haven't passed the token to get the users details. so for some of the get calls we dont need to provide access token\n- Since we not adding any new user or deleting it they are allowing us. We are only reading user details.\n    \n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a specific user (Trying with invalid user id)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a specific user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer fef7ee92b133f210949d46c85aa74a05a3ac1a6f407c7151f1ae084659971e72"
+							}
+						],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/6939117",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"6939117"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post Calls",
+			"item": [
+				{
+					"name": "PostCallJsonBody",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rahul\",\r\n    \"City\": \"Mumbai\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCallXMLBody",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<MachineInfo>\r\n        <MachineName>DPDID220100178</MachineName>\r\n        <SoftwareIds>\r\n            <SoftwareId plc=\"PPDMA\"/>\r\n        </SoftwareIds>\r\n        <LockingIds>\r\n            <LockingId>\r\n                <LockingIdCode>HOSTID</LockingIdCode>\r\n                <LockingIdValue>DPDID220100178</LockingIdValue>\r\n            </LockingId>\r\n        </LockingIds>\r\n    </MachineInfo>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCallTextBody",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Hello, Rahul Here!!"
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCallFormDatabody",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "Rahul",
+									"description": "Test",
+									"type": "text"
+								},
+								{
+									"key": "City",
+									"value": "Mumbai ",
+									"description": "Stay in Mumbai",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Put Calls",
+			"item": []
+		},
+		{
+			"name": "Delete Calls",
+			"item": [
+				{
+					"name": "Delete User",
+					"item": [
+						{
+							"name": "Delete a user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 67cb3fd4f61e6cae4afc770a6dfdb9cdf127fb2ef302fc1b0dfd6b5ae8dab174",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://gorest.co.in/public/v2/users/5580419",
+									"protocol": "https",
+									"host": [
+										"gorest",
+										"co",
+										"in"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users",
+										"5580419"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Option Call",
+			"item": [
+				{
+					"name": "Checking OPTIONS for Reqres API",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://reqres.in/api/users",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checking OPTIONS for JSONPlaceholder API",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

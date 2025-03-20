@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "4dbf0a38-4d75-4bc9-a428-8bb9013cab8e",
+		"name": "JWT - Token Workflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "JWT Token API",
+			"item": [
+				{
+					"name": "1 - Get JWT Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const JWTToken = pm.response.text();",
+									"console.log(JWTToken);",
+									"pm.environment.set(\"JWT_Token\", JWTToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://35.154.102.139:8080/users/signin?username=admin&password=admin",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"102",
+								"139"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signin"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - UsersMe API",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//call JWT AUTH api :",
+									"const url = 'http://35.154.102.139:8080/users/signin';",
+									"",
+									"pm.sendRequest({",
+									"  url: url,",
+									"  method: 'POST',",
+									"  header: {",
+									"    'Content-Type': 'application/x-www-form-urlencoded'",
+									"  },",
+									"  body: {",
+									"    mode: 'urlencoded',",
+									"    urlencoded: [",
+									"      { key: 'username', value: 'admin' },",
+									"      { key: 'password', value: 'admin' }",
+									"    ]",
+									"  }",
+									"}, function (err, response) {",
+									"  if (err) {",
+									"    console.error(err);",
+									"    return;",
+									"  }",
+									"",
+									"  console.log(response.text());",
+									"  pm.collectionVariables.set(\"JWT_Token_Using_Script\", response.text());",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "header",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "payload",
+									"value": "{\"sub\":\"admin\",\"auth\":[{\"authority\":\"ROLE_ADMIN\"}],\"iat\":1687432832,\"exp\":1687433132}",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "secret",
+									"value": "bezKoderSecretKey",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_Token_Using_Script}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://35.154.102.139:8080/users/me",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"102",
+								"139"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Get User Info",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://35.154.102.139:8080/users/admin",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"102",
+								"139"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

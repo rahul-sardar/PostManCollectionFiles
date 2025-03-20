@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "9aa412f8-0fe9-41a1-8fe4-36f31c7b1d80",
+		"name": "Environment Variables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test4_delete\",\r\n    \"email\": \"abcde@gamil.com\",\r\n    \"gender\": \"Male\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basicUrl}}public/v2/users/5573929",
+							"host": [
+								"{{basicUrl}}public"
+							],
+							"path": [
+								"v2",
+								"users",
+								"5573929"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete User",
+			"item": [
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{basicUrl}}public/v2/users/5580419",
+							"host": [
+								"{{basicUrl}}public"
+							],
+							"path": [
+								"v2",
+								"users",
+								"5580419"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update User",
+			"item": [
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{basicUrl}}public/v2/users/5573929",
+							"host": [
+								"{{basicUrl}}public"
+							],
+							"path": [
+								"v2",
+								"users",
+								"5573929"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get User",
+			"item": [
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{basicUrl}}public/v2/users",
+							"host": [
+								"{{basicUrl}}public"
+							],
+							"path": [
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CollectionLevelTokenId",
+			"value": "33d9174771f427696696ecc6dd4231b8db301dd362ee26a30c6f64bd2e65dc6d",
+			"type": "string"
+		}
+	]
+}

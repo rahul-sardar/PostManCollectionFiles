@@ -1,0 +1,33 @@
+{
+	"id": "867de345-49c9-416b-87c9-c4e2169b722e",
+	"values": [
+		{
+			"key": "tokenID",
+			"value": "33d9174771f427696696ecc6dd4231b8db301dd362ee26a30c6f64bd2e65dc6d",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "requestJson",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "priorityCheckVariable",
+			"value": "I m at global level",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "fileurl",
+			"value": "https://postman-echo.com",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2025-03-14T11:49:49.287Z",
+	"_postman_exported_using": "Postman/11.35.4"
+}

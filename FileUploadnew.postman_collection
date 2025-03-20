@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "af7f747a-1bfd-4f6f-9f8d-f80da6732b02",
+		"name": "FileUpload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "fileupload",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1f000c7c-3eff-4420-b25c-3972d817376f"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fileurl}}/post",
+					"host": [
+						"{{fileurl}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

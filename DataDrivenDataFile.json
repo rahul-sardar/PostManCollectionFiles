@@ -1,0 +1,17 @@
+[
+	{
+	"name":"Amit",
+	"city":"Pune",
+	"designation":"SDET"
+},
+{
+	"name":"Tom",
+	"city":"NY",
+	"designation":"QA"
+},
+{
+	"name":"Peter",
+	"city":"LA",
+	"designation":"DEV"
+}
+]

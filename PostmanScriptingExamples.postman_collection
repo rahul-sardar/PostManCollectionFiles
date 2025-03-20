@@ -1,0 +1,719 @@
+{
+	"info": {
+		"_postman_id": "21e6e7d7-4193-4dc1-91c7-ec8406e6d3e0",
+		"name": "Postman Scripting Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211778"
+	},
+	"item": [
+		{
+			"name": "postman scripts",
+			"item": [
+				{
+					"name": "1 - get data from array and assert",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();",
+									"console.log(resData)",
+									"const filtersData = resData.json.filters;",
+									"console.log(filtersData);",
+									"",
+									"const countryIndex = filtersData.map(function(e){",
+									"    return e.name;",
+									"}).indexOf('COUNTRY');",
+									"console.log(countryIndex);//1",
+									"",
+									"//newman",
+									"",
+									"",
+									"const countryData = filtersData[countryIndex];",
+									"",
+									"pm.test('check country id', function(){",
+									"    pm.expect(filtersData).to.be.an('array');",
+									"    pm.expect(countryData).to.be.exist;",
+									"    pm.expect(countryData.id).to.be.eql(102);",
+									"    pm.expect(countryData.isAllowed).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyId\": 10101,\n    \"regionId\": 36554,\n    \"filters\": [\n        {\n            \"id\": 101,\n            \"name\": \"VENDOR\",\n            \"isAllowed\": false\n        },\n        {\n            \"id\": 102,\n            \"name\": \"COUNTRY\",\n            \"isAllowed\": true\n        },\n        {\n            \"id\": 103,\n            \"name\": \"MANUFACTURER\",\n            \"isAllowed\": false\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - compare value of response with multiple options",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check target value', function(){",
+									"",
+									"    const resData = pm.response.json();",
+									"    const jsonData = resData.json;",
+									"    pm.expect(jsonData.ACL[0].Target).to.be.oneOf([\"Subscriber\", \"promoter\"]);",
+									"",
+									"",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"id\" : \"test123\",\n    \"ACL\":[\n        {\n            \"GroupName\": \"test automation\",\n            \"Target\": \"Subscriber\" //promoter\n        }\n    ]\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - check the response from HTML body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('body matches value', function(){",
+									"    pm.expect(pm.response.text()).to.include(\"The Internet\");",
+									"});",
+									"",
+									"",
+									"",
+									"// Include the Cheerio library",
+									"const cheerio = require('cheerio');",
+									"",
+									"// Define the test",
+									"pm.test('body matches value with cheerio api', function() {",
+									"    // Parse the response body using Cheerio",
+									"    const $ = cheerio.load(pm.response.text());",
+									"    ",
+									"    // Extract and log the entire HTML content for inspection",
+									"    const htmlContent = $.html();",
+									"    console.log(\"HTML Content:\\n\", htmlContent);",
+									"    ",
+									"    // Extract the text content from the parsed HTML body",
+									"    const responseData = $('body').text();",
+									"    ",
+									"    // Log the extracted text content for debugging",
+									"    console.log(\"Extracted Text Content:\\n\", responseData);",
+									"    ",
+									"    // Assert that the extracted text content includes the expected value",
+									"    pm.expect(responseData).to.include(\"Username\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://the-internet.herokuapp.com/login",
+							"protocol": "https",
+							"host": [
+								"the-internet",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 - partial response vlidation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('should include sub set of json body', function(){",
+									"",
+									"    const resData = pm.response.json();",
+									"    const expectedUserJson = {",
+									"        \"email\": \"hon_baidehi_khatri_the@tillman.test\",",
+									"        \"gender\": \"male\",",
+									"        \"status\": \"inactive\"",
+									"    };",
+									"",
+									"//chai JS lib -- assertions: BDD based assertions",
+									"    pm.expect(resData).to.include(expectedUserJson);",
+									"    pm.expect(resData).to.have.property('id');",
+									"    ",
+									"",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/3253925",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"3253925"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5 - Generate Random Number and String",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function getRandomNumber(minValue, maxValue){",
+									"    return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;",
+									"}",
+									"",
+									"function getRandomString(){",
+									"    return Math.random().toString(35).substring(2);",
+									"}",
+									"",
+									"//convert raw request body to JS object:",
+									"const reqBody = JSON.parse(pm.request.body.raw);",
+									"reqBody.number = getRandomNumber(1,100);",
+									"pm.request.body.raw = reqBody;",
+									"",
+									"const randomEmail = \"testautomation\"+ getRandomString() + \"@test.com\";",
+									"//pm.collectionVariables.set(\"random_email\", randomEmail);",
+									"console.log(randomEmail);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GroupName\" : \"Testing\",\n    \"Comment\": \"Happy\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6 - Add a delay",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(() => {}, 10000);//10 secs"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/3253925",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"3253925"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7 - Send request using XML with script",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var options = {",
+									"    'method': 'POST',",
+									"    'url': 'http://httpbin.org/post',",
+									"    'headers':{",
+									"        'Content-Type': 'application/xml'",
+									"    },",
+									"    body: `<items>",
+									"        <item>",
+									"        <full_name>Clifton Jaskolski</full_name>",
+									"        <phone>+1 787-347-2484</phone>",
+									"        <email>clifton75@hotmail.com</email>",
+									"        <currency>$ 7,566,419</currency>",
+									"        <number>8318787</number>",
+									"        <price>{{price}}</price>",
+									"        </item>",
+									"",
+									"        <item>",
+									"        <full_name>Kellie Thiel</full_name>",
+									"        <phone>+1 517-566-8914</phone>",
+									"        <email>kellie.thiel@hotmail.com</email>",
+									"        <currency>$ 2,094,157</currency>",
+									"        <number>8483211</number>",
+									"        <price>{{price}}</price>",
+									"        </item>",
+									"        ",
+									"        <item>",
+									"        <full_name>Laurence Schimmel</full_name>",
+									"        <phone>+1 332-103-4923</phone>",
+									"        <email>laurence41@gmail.com</email>",
+									"        <currency>$ 7,285,029</currency>",
+									"        <number>3996718</number>",
+									"        <price>{{price}}</price>",
+									"        </item>",
+									"</items>`",
+									"};",
+									"",
+									"var priceData = pm.iterationData.get(\"price\");",
+									"options.body = options.body.replaceAll(\"{{price}}\", priceData);",
+									"",
+									"pm.sendRequest(options, function(error, response){",
+									"    if(error){console.log(error)}",
+									"    console.log(response);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "this is my text",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8-Fetch_URLS_From_Json_Response_And_Use_The_Same_URL_In_GET_Call_Using_Script",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData= pm.response.json();\r",
+									"const urlData= resData.json.urls;\r",
+									"\r",
+									"Object.keys(urlData).forEach(function(e){\r",
+									"    pm.test(\"Check url with GET Call\", function(){\r",
+									"        pm.sendRequest(urlData[e],function(error, response){\r",
+									"            if(error) {console.log(error)}\r",
+									"            console.log(response)\r",
+									"            pm.response.to.have.status(200);\r",
+									"        })\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"urls\":{\r\n        \"u1\":\"http://www.example1.com\",\r\n        \"u2\":\"http://www.example2.com\",\r\n        \"u3\":\"http://www.example3.com\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9 -Fetch_URLS_From_Json_Array_Response_And_Use_The_Same_URL_In_GET_Call_Using_Script",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData= pm.response.json();\r",
+									"const urlData= resData.json.urls;\r",
+									"\r",
+									"Object.keys(urlData).forEach(function(e){\r",
+									"    pm.test(\"Check url with GET Call\", function(){\r",
+									"        pm.sendRequest(urlData[e],function(error, response){\r",
+									"            if(error) {console.log(error)}\r",
+									"            console.log(response)\r",
+									"            pm.response.to.have.status(200);\r",
+									"        })\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "const resData= pm.response.json();\r\nconst urlData= resData.json.urls;\r\n\r\nObject.keys(urlData).forEach(function(e){\r\n    pm.test(\"Check url with GET Call\", function(){\r\n        pm.sendRequest(urlData[e],function(error, response){\r\n            if(error) {console.log(error)}\r\n            console.log(response)\r\n            pm.response.to.have.status(200);\r\n        })\r\n    })\r\n})",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://httpbin.org/post",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Headers Script",
+			"item": [
+				{
+					"name": "1 - Add single and multiple header key-value pairs",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//add single key-value pair:",
+									"// pm.request.headers.add({",
+									"//     key: 'groupid',",
+									"//     value: 'testing group'",
+									"// });",
+									"",
+									"//add multiple headers : key-value pairs:",
+									"const headers = [",
+									"    {key: 'header1', value: 'value1'},",
+									"    {key: 'header2', value: 'value2'},",
+									"    {key: 'header3', value: 'value3'},",
+									"];",
+									"",
+									"",
+									"headers.forEach(function(e){",
+									"    pm.request.headers.add(e);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "test",
+								"type": "text"
+							},
+							{
+								"key": "group",
+								"value": "naveen",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/3253925",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"3253925"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2- Update Header",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.upsert(",
+									"",
+									"    {",
+									"        key: 'User-Agent',",
+									"        value: 'Naveen-Postman'",
+									"    }",
+									"",
+									")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Delete A Header",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.remove('Authorization');",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "test123",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Case Status",
+			"item": [
+				{
+					"name": "1 - Get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test.skip(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test.skip(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"name\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"make it fail test\", function () {",
+									"    pm.expect.fail();",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
