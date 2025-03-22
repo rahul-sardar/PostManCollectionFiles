@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Run api test cases') {
             steps {
-                sh 'newman run ./CRUD_WorkFlow_With_Environment_Variable.postman_collection.json -e ./Basic-	Env.postman_environment.json -r cli,htmlextra --reporter-htmlextra-title 		    "CurdWorkflowAPITest" --verbose'
+                sh 'newman run ./CRUD_WorkFlow_With_Environment_Variable.postman_collection.json -e ./Basic-Env.postman_environment.json -r cli,htmlextra --reporter-htmlextra-title 		    "CurdWorkflowAPITest" --verbose'
             }
         }
         stage('Publish HTML Extra Report'){
@@ -30,7 +30,7 @@ pipeline {
                                   alwaysLinkToLastBuild: false, 
                                   keepAll: true, 
                                   reportDir: 'results', 
-                                  reportFiles: 'CRUDWorkflow_report.html', 
+                                  reportFiles: 'CRUD_report.html', 
                                   reportName: 'HTML Extra API Report', 
                                   reportTitles: ''])
             }
